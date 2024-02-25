@@ -10,6 +10,9 @@ And the field name have to match with field asset name in farmOS.
 Working dir has to be set. Should be the path to where AgOpenGPS store the fields. (The folder you have to open to view the fields dirs)
 
 Then it should get the most recent field worked on, and save the log in farmOS.
+Flags, boundary and section covarage are imported to map in log.
+Also, worked area are stored in note-field.
+
 I'm surprised if there are no bugs.
 
 Use at own risk
