@@ -1,0 +1,1799 @@
+[
+    {
+        "id": "addbdc8486a01571",
+        "type": "ui_button",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "group": "d4eaff1e7ceb8616",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Set working path",
+        "tooltip": "The directory for AOG fields. Included the Fields folder",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Enter path for AgOpenGPS files",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 230,
+        "y": 1080,
+        "wires": [
+            [
+                "44241621938b9890"
+            ]
+        ]
+    },
+    {
+        "id": "44241621938b9890",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "position": "prompt",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "Set path",
+        "cancel": "Cancel",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 450,
+        "y": 1080,
+        "wires": [
+            [
+                "417b384cbf269cbe"
+            ]
+        ]
+    },
+    {
+        "id": "330c05e7c5a751f7",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "name": "Filename",
+        "func": "flow.set(\"path\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1080,
+        "wires": [
+            [
+                "27ccc35b59f12705"
+            ]
+        ]
+    },
+    {
+        "id": "27ccc35b59f12705",
+        "type": "file",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "filename": "aogpath.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1010,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7165f29d372f99b9",
+        "type": "file in",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "filename": "aogpath.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 1140,
+        "wires": [
+            [
+                "4fba7418ee700dde"
+            ]
+        ]
+    },
+    {
+        "id": "93aac5d3fc5bdc98",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "4fba7418ee700dde",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "name": "Filename",
+        "func": "msg.payload = flow.set(\"path\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1140,
+        "wires": [
+            [
+                "93aac5d3fc5bdc98"
+            ]
+        ]
+    },
+    {
+        "id": "04764be9e87599ee",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "name": "Read config cile",
+        "links": [
+            "f4e20e4e50ca37d2"
+        ],
+        "x": 235,
+        "y": 1140,
+        "wires": [
+            [
+                "7165f29d372f99b9"
+            ]
+        ]
+    },
+    {
+        "id": "c0f6546d93efed75",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1200,
+        "wires": [
+            [
+                "7165f29d372f99b9"
+            ]
+        ]
+    },
+    {
+        "id": "417b384cbf269cbe",
+        "type": "switch",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Cancel",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 1080,
+        "wires": [
+            [
+                "330c05e7c5a751f7"
+            ]
+        ]
+    },
+    {
+        "id": "6777437a8a296b55",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Get data from AOG",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "6456763b.e07d78",
+            "35811671.90ebea",
+            "7dbdf6ef.a73868",
+            "ee6515ea.f968c8",
+            "50034043.e2347",
+            "4f9068e.e12c498",
+            "87a209a20a25492a",
+            "1860dafb42ecb7a5",
+            "7e6a4e9c23df1067",
+            "628fb2924759832a",
+            "ab6bf185bf4e8276",
+            "f4e20e4e50ca37d2",
+            "b6c96882bf9e011e",
+            "b075e8b3106c27fc"
+        ],
+        "x": 34,
+        "y": -1,
+        "w": 1072,
+        "h": 322
+    },
+    {
+        "id": "6456763b.e07d78",
+        "type": "fs-ops-dir",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "path": "payload",
+        "pathType": "msg",
+        "filter": "",
+        "filterType": "str",
+        "dir": "files",
+        "dirType": "msg",
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "35811671.90ebea"
+            ]
+        ]
+    },
+    {
+        "id": "35811671.90ebea",
+        "type": "fs-ops-stats",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "path": "payload",
+        "pathType": "msg",
+        "filename": "files",
+        "filenameType": "msg",
+        "stats": "stats",
+        "sizeType": "msg",
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "ee6515ea.f968c8"
+            ]
+        ]
+    },
+    {
+        "id": "7dbdf6ef.a73868",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
+        "payloadType": "str",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "6456763b.e07d78"
+            ]
+        ]
+    },
+    {
+        "id": "ee6515ea.f968c8",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Combine and sort",
+        "func": "var combined = [];\n\nfor (var i = 0; i < msg.files.length; i++) {\n    var file = msg.files[i];\n    var stat = msg.stats[i];\n    \n    combined.push({\n        path: msg.payload,\n        file,\n        ...stat\n    })\n}\n\ncombined.sort((a, b) => b.birthtimeMs - a.birthtimeMs);\n\nmsg.combined = combined;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 140,
+        "wires": [
+            [
+                "50034043.e2347"
+            ]
+        ]
+    },
+    {
+        "id": "50034043.e2347",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "combined[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 140,
+        "wires": [
+            [
+                "4f9068e.e12c498",
+                "87a209a20a25492a"
+            ]
+        ]
+    },
+    {
+        "id": "4f9068e.e12c498",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "87a209a20a25492a",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Set variables",
+        "func": "var originalFilename = msg.payload.file;\n\nflow.set(\"AOG_FieldFolder\",msg.payload.file)\n\n// Split the filename at hyphens (\"-\")\nvar filenameParts = originalFilename.split(\" \");\n\n// Remove whitespaces from the parts of the filename\nfilenameParts = filenameParts.map(part => part.trim());\n\n// Create an object to store the different parts of the filename\nvar parsedFilename = {\n    \"Field-name\": getFieldName(filenameParts) || null,\n    \"Equipment\": filenameParts[filenameParts.length - 2] || null,\n    \"Date\": filenameParts[filenameParts.length - 1] || null\n};\n\n// Store parsedFilename as flow variables\nflow.set(\"Fieldname\", parsedFilename[\"Field-name\"]);\nflow.set(\"Equipment\", parsedFilename[\"Equipment\"]);\nflow.set(\"Date\", parsedFilename[\"Date\"]);\n\n// Put the parsed filename into a new payload\nmsg.payload = parsedFilename;\n\n// Send the modified message forward\nreturn msg;\n\n// Function to retrieve the field name from the filename\nfunction getFieldName(parts) {\n    // Find the index of the first word containing east, west, north, or south\n    const index = parts.findIndex(word => [\"east\", \"west\", \"north\", \"south\"].includes(word.toLowerCase()));\n\n    if (index !== -1) {\n        // If the word is found, return all words up to and including the found word\n        return parts.slice(0, index + 1).join(\" \");\n    } else {\n        // If not, return the first word\n        return parts[0];\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "1860dafb42ecb7a5",
+                "ab6bf185bf4e8276"
+            ]
+        ]
+    },
+    {
+        "id": "1860dafb42ecb7a5",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "7e6a4e9c23df1067",
+        "type": "ui_button",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "group": "d4eaff1e7ceb8616",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Get from AOG",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "6456763b.e07d78",
+                "f4e20e4e50ca37d2"
+            ]
+        ]
+    },
+    {
+        "id": "628fb2924759832a",
+        "type": "ui_text",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "group": "d4eaff1e7ceb8616",
+        "order": 3,
+        "width": "6",
+        "height": "3",
+        "name": "",
+        "label": "Data from AOG",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 760,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ab6bf185bf4e8276",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Format text",
+        "func": "// Retrieve the parsed parts of the filename from msg.payload\nvar parsedFilename = msg.payload;\n\n// Create an HTML string with formatted text\nvar formattedText = \"<b>Field : </b> \" + parsedFilename[\"Field-name\"] + \"<br>\" +\n    \"<b>Vehicle : </b> \" + parsedFilename[\"Equipment\"] + \"<br>\" +\n    \"<b>Date : </b> \" + parsedFilename[\"Date\"];\n\nmsg.payload = formattedText;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 240,
+        "wires": [
+            [
+                "628fb2924759832a"
+            ]
+        ]
+    },
+    {
+        "id": "f4e20e4e50ca37d2",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "04764be9e87599ee",
+            "28431c57814d20a5"
+        ],
+        "x": 305,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b6c96882bf9e011e",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Get from AOG",
+        "mode": "link",
+        "links": [
+            "c385a861e210f52e"
+        ],
+        "x": 285,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b075e8b3106c27fc",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
+        "payloadType": "str",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "b6c96882bf9e011e"
+            ]
+        ]
+    },
+    {
+        "id": "523358fe435bf4b5",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Save log to farmOS",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b8c8d322e4334276",
+            "45fd4d93e705a24b",
+            "9a14842f30f831e3",
+            "c70b02b0f9ea8bb4",
+            "f9022109425a0ba0",
+            "3e43d67f51876647",
+            "b9a6a0e5806127b1",
+            "b04f6ed399ad107a",
+            "5aee7124de3fde10",
+            "3f3857580e2547ef",
+            "2c2268cab2939e9e",
+            "f6b63e90791d0e07",
+            "4f5d5d54a16e0e69",
+            "fa5cba8fd71c9c51",
+            "0d6f500a773fb2f2",
+            "86a95f323194d27b",
+            "4393b4ea43d4087e"
+        ],
+        "x": 34,
+        "y": 359,
+        "w": 1672,
+        "h": 182
+    },
+    {
+        "id": "949541c9b70110d5",
+        "type": "subflow",
+        "name": "farmOS API",
+        "info": "",
+        "category": "farmOS",
+        "in": [
+            {
+                "x": 40,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "f5f2c948e607d3bb"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 900,
+                "y": 160,
+                "wires": [
+                    {
+                        "id": "c49aabb103815f36",
+                        "port": 0
+                    },
+                    {
+                        "id": "773b16e9273cd1ac",
+                        "port": 1
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "API",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "Method",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "type": "select",
+                    "opts": {
+                        "opts": [
+                            {
+                                "l": {
+                                    "en-US": "GET"
+                                },
+                                "v": "GET"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "POST"
+                                },
+                                "v": "POST"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "PATCH"
+                                },
+                                "v": "PATCH"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "DELETE"
+                                },
+                                "v": "DELETE"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#C7E9C0"
+    },
+    {
+        "id": "524b513df6c48f0b",
+        "type": "function",
+        "z": "949541c9b70110d5",
+        "name": "API",
+        "func": "var token = global.get('token');\nvar api = env.get('API');\nvar method = env.get('Method')\n\nmsg.headers = {};\nmsg.headers['Authorization'] = \"Bearer \"+token;\nmsg.headers['Accept'] = \"application/vnd.api+json\";\nmsg.headers['content-type'] = 'application/vnd.api+json';\n\nmsg.url = global.get('farmOSurl').concat('/api/' + api);\n//msg.url = \"http://192.168.1.34/api/taxonomy_term/animal_type?page%5Boffset%5D=50&page%5Blimit%5D=50\";\nmsg.method = method;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "03cfe11edd83927d"
+            ]
+        ]
+    },
+    {
+        "id": "03cfe11edd83927d",
+        "type": "http request",
+        "z": "949541c9b70110d5",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "773b16e9273cd1ac"
+            ]
+        ]
+    },
+    {
+        "id": "c49aabb103815f36",
+        "type": "function",
+        "z": "949541c9b70110d5",
+        "name": "Check for next",
+        "func": "var token = global.get('token');\nmsg.headers = {\n    Authorization: \"Bearer \"+token\n}\n\n\nif (msg.payload.links.hasOwnProperty(\"next\")){\n    msg.url = msg.payload.links.next.href;\n    msg.method = \"GET\";\n}else{\n    msg.url = null;\n    msg.complete = \"complete\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 100,
+        "wires": [
+            [
+                "4a41f840f045b6fc"
+            ]
+        ]
+    },
+    {
+        "id": "4a41f840f045b6fc",
+        "type": "switch",
+        "z": "949541c9b70110d5",
+        "name": "",
+        "property": "url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "03cfe11edd83927d"
+            ]
+        ]
+    },
+    {
+        "id": "773b16e9273cd1ac",
+        "type": "switch",
+        "z": "949541c9b70110d5",
+        "name": "",
+        "property": "method",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "GET",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "c49aabb103815f36"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0698c93190ab9fc4",
+        "type": "delay",
+        "z": "949541c9b70110d5",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "524b513df6c48f0b"
+            ]
+        ]
+    },
+    {
+        "id": "f5f2c948e607d3bb",
+        "type": "switch",
+        "z": "949541c9b70110d5",
+        "name": "",
+        "property": "Method",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "GET",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "0698c93190ab9fc4"
+            ],
+            [
+                "524b513df6c48f0b"
+            ]
+        ]
+    },
+    {
+        "id": "b8c8d322e4334276",
+        "type": "ui_button",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "group": "d4eaff1e7ceb8616",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Save to farmOS",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "86a95f323194d27b"
+            ]
+        ]
+    },
+    {
+        "id": "45fd4d93e705a24b",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Filename",
+        "func": "flow.set(\"path\", \"/home/jk/Dokumenter/AgOpenGPS/Fields\")\n\nmsg.filename = flow.get(\"path\") +'/'+ flow.get(\"AOG_FieldFolder\") +'/' +'Field.kml';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 500,
+        "wires": [
+            [
+                "c70b02b0f9ea8bb4"
+            ]
+        ]
+    },
+    {
+        "id": "9a14842f30f831e3",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 500,
+        "wires": [
+            [
+                "45fd4d93e705a24b"
+            ]
+        ]
+    },
+    {
+        "id": "c70b02b0f9ea8bb4",
+        "type": "file in",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 440,
+        "y": 500,
+        "wires": [
+            [
+                "f9022109425a0ba0"
+            ]
+        ]
+    },
+    {
+        "id": "f9022109425a0ba0",
+        "type": "xml",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 590,
+        "y": 500,
+        "wires": [
+            [
+                "3e43d67f51876647",
+                "b9a6a0e5806127b1"
+            ]
+        ]
+    },
+    {
+        "id": "3e43d67f51876647",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b9a6a0e5806127b1",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Prepare stats",
+        "func": "// Extract statistics from the KML payload\nmsg.payload.stats = msg.payload.kml.Document[0].Folder[0].description[0];\n\n// Function to translate and convert measurements\nfunction translateAndConvert(payload) {\n    // Map of translations from English to Norwegian\n    const translationMap = {\n        \"Field\": \"Åker\",\n        \"Total Hectares\": \"Areal\",\n        \"Worked Hectares\": \"Bearbeidedet areal\",\n        \"Missing Hectares\": \"Urørt areal\",\n        \"Total Acres\": \"Totalt Dekar\",\n        \"Worked Acres\": \"Bearbeidede Dekar\",\n        \"Missing Acres\": \"Mangler Dekar\",\n        \"Tool Width\": \"Redskapsbredde\",\n        \"Sections\": \"Seksjoner\",\n        \"Section Overlap\": \"Seksjons-overlapping\"\n    };\n\n    // Check if the payload is a string\n    if (typeof payload.payload.stats === 'string') {\n        // Split the string by line breaks and colons to get key-value pairs\n        const keyValuePairs = payload.payload.stats.split('\\n');\n\n        // Translate and convert each key-value pair\n        let translatedPayload = {};\n        keyValuePairs.forEach(pair => {\n            const [key, value] = pair.split(':');\n            if (key && value) {\n                const trimmedKey = key.trim();\n                const trimmedValue = parseFloat(value.trim());\n                if (trimmedKey !== \"Field\" && !trimmedKey.includes(\"Acres\") && translationMap[trimmedKey]) {\n                    translatedPayload[translationMap[trimmedKey]] = trimmedValue;\n                } else if (trimmedKey !== \"Field\" && !trimmedKey.includes(\"Acres\")) {\n                    translatedPayload[trimmedKey] = trimmedValue;\n                }\n            }\n        });\n\n        // Convert measurements from hectares to decares\n        //translatedPayload[\"Areal\"] = (translatedPayload[\"Areal\"] * 10).toFixed(2);\n        //translatedPayload[\"Bearbeidede Mål\"] = (translatedPayload[\"Bearbeidede Mål\"] * 10).toFixed(2);\n        //translatedPayload[\"Mangler Mål\"] = (translatedPayload[\"Mangler Mål\"] * 10).toFixed(2);\n\n        return { payload: translatedPayload };\n    } else {\n        // If stats is not a string, return the original payload\n        return payload;\n    }\n}\n\nmsg = translateAndConvert(msg);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 500,
+        "wires": [
+            [
+                "b04f6ed399ad107a"
+            ]
+        ]
+    },
+    {
+        "id": "b04f6ed399ad107a",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Prepare log",
+        "func": "var json = \n\n{\n    \"data\": {\n        \"type\": \"log--activity\",\n        \"attributes\": {\n            \"name\": \"AOG - \" + flow.get(\"Fieldname\") + ' - ' + flow.get(\"Equipment\"),\n            \"status\": \"done\",\n            \"notes\": \"Bearbeidet areal : \" + msg.payload[\"Bearbeidedet areal\"],            \n            \"geometry\": {\n                \"value\": flow.get(\"WKT_merged\")\n            },\n        \"relationships\": {\n            \"asset\": { \n                \"data\": {\n                    \"type\": \"asset--land\",\n                    \"id\": flow.get(\"farmOS_FieldID\")\n                }\n\n            }\n        }\n        }\n    }\n}\n\n\nmsg.payload = json;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 500,
+        "wires": [
+            [
+                "5aee7124de3fde10"
+            ]
+        ]
+    },
+    {
+        "id": "5aee7124de3fde10",
+        "type": "subflow:949541c9b70110d5",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "env": [
+            {
+                "name": "API",
+                "value": "log/activity",
+                "type": "str"
+            },
+            {
+                "name": "Method",
+                "value": "POST",
+                "type": "str"
+            }
+        ],
+        "x": 1090,
+        "y": 500,
+        "wires": [
+            [
+                "3f3857580e2547ef",
+                "2c2268cab2939e9e"
+            ]
+        ]
+    },
+    {
+        "id": "3f3857580e2547ef",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2c2268cab2939e9e",
+        "type": "switch",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "201",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "201",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1250,
+        "y": 440,
+        "wires": [
+            [
+                "f6b63e90791d0e07"
+            ],
+            [
+                "fa5cba8fd71c9c51"
+            ]
+        ]
+    },
+    {
+        "id": "f6b63e90791d0e07",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Save msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "THE LOG WAS SAVED",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 420,
+        "wires": [
+            [
+                "4f5d5d54a16e0e69"
+            ]
+        ]
+    },
+    {
+        "id": "4f5d5d54a16e0e69",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "Green",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1600,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "fa5cba8fd71c9c51",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Error msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "NOTHING WAS SAVED",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 460,
+        "wires": [
+            [
+                "0d6f500a773fb2f2"
+            ]
+        ]
+    },
+    {
+        "id": "0d6f500a773fb2f2",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "Red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "ERROR",
+        "name": "",
+        "x": 1600,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "86a95f323194d27b",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Prepare Geodata",
+        "mode": "link",
+        "links": [
+            "627bdd68d3e2cc95"
+        ],
+        "x": 265,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "4393b4ea43d4087e",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Create activity log",
+        "links": [
+            "b5518a5e60cbc728"
+        ],
+        "x": 165,
+        "y": 460,
+        "wires": [
+            [
+                "45fd4d93e705a24b"
+            ]
+        ]
+    },
+    {
+        "id": "218db33e9a179a17",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Get fields and equipment",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "85a992b6f1a84742",
+            "a248d67544e4fd63",
+            "da1c1fcbd0a61e0c",
+            "2f424e9149c7d2ea",
+            "a95a797ba46fc00c",
+            "28431c57814d20a5",
+            "751ab8934e4646c1",
+            "a9a459621b482584",
+            "afe7197d0c848471",
+            "e5c17c0cdd2470a0"
+        ],
+        "x": 34,
+        "y": 579,
+        "w": 992,
+        "h": 122
+    },
+    {
+        "id": "85a992b6f1a84742",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/jk/Dokumenter/AgOpenGPS/Vehicles",
+        "payloadType": "str",
+        "x": 130,
+        "y": 620,
+        "wires": [
+            [
+                "a248d67544e4fd63",
+                "751ab8934e4646c1"
+            ]
+        ]
+    },
+    {
+        "id": "a248d67544e4fd63",
+        "type": "subflow:949541c9b70110d5",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "Get Fields",
+        "env": [
+            {
+                "name": "API",
+                "value": "asset/land?filter[land_type]=field",
+                "type": "str"
+            },
+            {
+                "name": "Method",
+                "value": "GET",
+                "type": "str"
+            }
+        ],
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "2f424e9149c7d2ea"
+            ]
+        ]
+    },
+    {
+        "id": "da1c1fcbd0a61e0c",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "2f424e9149c7d2ea",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "Make field array",
+        "func": "// Check if the payload has the correct structure\nif (msg.payload && msg.payload.data && Array.isArray(msg.payload.data)) {\n    // Create an empty array to store id and name pairs\n    const idAndNames = [];\n\n    // Iterate through each object in the data array and add id and name pairs to the array\n    msg.payload.data.forEach(item => {\n        const id = item.id;\n        const name = item.attributes.name;\n        idAndNames.push({ id: id, name: name });\n    });\n\n    // Save the array as a flow variable\n    flow.set(\"Fields\", idAndNames);\n} else {\n    // If the structure is not as expected, issue a warning\n    console.warn(\"Payload structure is not as expected.\");\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 620,
+        "wires": [
+            [
+                "a95a797ba46fc00c"
+            ]
+        ]
+    },
+    {
+        "id": "a95a797ba46fc00c",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "function 3",
+        "func": "// Retrieve the selected field name from the flow variable\nconst selectedFieldName = flow.get(\"Fieldname\");\n\n// Check if the array with field names and ids finds a match\nconst match = flow.get(\"Fields\").find(item => item.name === selectedFieldName);\n\n// If there is a match, send the name and id forward in the payload\nif (match) {\n    // Save FieldName and FieldID as separate flow variables\n    flow.set(\"farmOS_FieldName\", match.name);\n    flow.set(\"farmOS_FieldID\", match.id);\n\n    msg.payload = {\n        fieldName: match.name,\n        fieldId: match.id\n    };\n\n    return [msg, null];\n} else {\n    // If there is no match, issue a warning\n    msg.payload = \"No match in farmOS for \" + selectedFieldName;\n    return [null, msg];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 620,
+        "wires": [
+            [
+                "da1c1fcbd0a61e0c"
+            ],
+            [
+                "da1c1fcbd0a61e0c"
+            ]
+        ]
+    },
+    {
+        "id": "28431c57814d20a5",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "link in 1",
+        "links": [
+            "f4e20e4e50ca37d2"
+        ],
+        "x": 135,
+        "y": 660,
+        "wires": [
+            [
+                "a248d67544e4fd63",
+                "751ab8934e4646c1"
+            ]
+        ]
+    },
+    {
+        "id": "751ab8934e4646c1",
+        "type": "subflow:949541c9b70110d5",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "Get equipments",
+        "env": [
+            {
+                "name": "API",
+                "value": "asset/equipment",
+                "type": "str"
+            },
+            {
+                "name": "Method",
+                "value": "GET",
+                "type": "str"
+            }
+        ],
+        "x": 320,
+        "y": 660,
+        "wires": [
+            [
+                "a9a459621b482584"
+            ]
+        ]
+    },
+    {
+        "id": "a9a459621b482584",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "Make equipment array",
+        "func": "// Check if the payload has the correct structure\nif (msg.payload && msg.payload.data && Array.isArray(msg.payload.data)) {\n    // Create an empty array to store id and name pairs\n    const idAndNames = [];\n\n    // Iterate through each object in the data array and add id and name pairs to the array\n    msg.payload.data.forEach(item => {\n        const id = item.id;\n        const name = item.attributes.name;\n        idAndNames.push({ id: id, name: name });\n    });\n\n    // Save the array as a flow variable\n    flow.set(\"farmOS_Equipment\", idAndNames);\n} else {\n    // If the structure is not as expected, issue a warning\n    console.warn(\"Payload structure is not as expected.\");\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 660,
+        "wires": [
+            [
+                "afe7197d0c848471"
+            ]
+        ]
+    },
+    {
+        "id": "afe7197d0c848471",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "function 4",
+        "func": "// Retrieve the selected equipment name from the flow variable\nconst selectedEquipment = flow.get(\"Equipment\");\n\n// Check if the array with equipment names and ids finds a match\nconst match = flow.get(\"farmOS_Equipment\").find(item => item.name === selectedEquipment);\n\n// If there is a match, send the name and id forward in the payload\nif (match) {\n    // Save EquipmentName and EquipmentID as separate flow variables\n    flow.set(\"farmOS_EquipmentName\", match.name);\n    flow.set(\"farmOS_EquipmentID\", match.id);\n\n    msg.payload = {\n        equipmentName: match.name,\n        equipmentId: match.id\n    };\n\n    return [msg, null];\n} else {\n    // If there is no match, issue a warning\n    msg.payload = \"No match in farmOS for \" + selectedEquipment;\n    return [null, msg];\n}\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 660,
+        "wires": [
+            [
+                "e5c17c0cdd2470a0"
+            ],
+            [
+                "e5c17c0cdd2470a0"
+            ]
+        ]
+    },
+    {
+        "id": "e5c17c0cdd2470a0",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "218db33e9a179a17",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "521f2f2f99447d54",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "KML 2 WKT for farmOS map",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b001845b7dc1b426",
+            "6bf58bc62fb48418",
+            "2b365327191597b5",
+            "b2d427fc3b04095a",
+            "fbf9920b36a1fde9",
+            "8ec1a7ebdf62145a",
+            "8cb4ad669c410c33",
+            "844172c242262280",
+            "f0f53e024e153f0e",
+            "7eac5caa3c6cc88f",
+            "627bdd68d3e2cc95",
+            "b5518a5e60cbc728",
+            "a014d56ef2cde6e7",
+            "bc569dbd86c65a8e",
+            "cb2639ce852d5a0b"
+        ],
+        "x": 34,
+        "y": 739,
+        "w": 1392,
+        "h": 242
+    },
+    {
+        "id": "b001845b7dc1b426",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 900,
+        "wires": [
+            [
+                "a014d56ef2cde6e7"
+            ]
+        ]
+    },
+    {
+        "id": "6bf58bc62fb48418",
+        "type": "file in",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "KML-file",
+        "filename": "payload",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 560,
+        "y": 900,
+        "wires": [
+            [
+                "8ec1a7ebdf62145a"
+            ]
+        ]
+    },
+    {
+        "id": "2b365327191597b5",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "b2d427fc3b04095a",
+        "type": "comment",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "",
+        "info": "Need some extra libraries..\n\nnpm install togeojson wellknown \nnpm install xmldom",
+        "x": 120,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "fbf9920b36a1fde9",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "Merge flags,boundary,sections",
+        "func": "// Merge multiple Well-Known Text (WKT) results into a single WKT Geometry Collection\nfunction mergeWKTResults(wktFlags, wktBoundaries, wktSections) {\n    // Array to store valid WKT results\n    const validWKTResults = [];\n\n    // Function to check if a WKT result is valid\n    const isValidWKT = (wkt) => wkt !== null && typeof wkt !== 'undefined' && wkt.trim() !== '';\n\n    // Check and add valid WKT results to the array\n    if (isValidWKT(wktFlags)) {\n        validWKTResults.push(wktFlags);\n    }\n\n    if (isValidWKT(wktBoundaries)) {\n        validWKTResults.push(wktBoundaries);\n    }\n\n    if (isValidWKT(wktSections)) {\n        validWKTResults.push(wktSections);\n    }\n\n    // Check if there are any valid WKT results\n    if (validWKTResults.length > 0) {\n        // Combine valid WKT results into a Geometry Collection\n        return `GEOMETRYCOLLECTION(${validWKTResults.join(',')})`;\n    } else {\n        // Return null if no valid WKT results are available\n        return null;\n    }\n}\n\n// Example usage:\n// Extract KML data from the message payload\nconst kmlData = msg.payload.kml;\n\n// Retrieve WKT results from flow variables\nconst wktFlags = flow.get(\"WKT_flags\");\nconst wktBoundaries = flow.get(\"WKT_boundary\");\nconst wktSections = flow.get(\"WKT_sections\");\n\n// Merge WKT results into a single Geometry Collection\nconst mergedWKT = mergeWKTResults(wktFlags, wktBoundaries, wktSections);\n\n// Set the merged WKT as payload and in a flow variable\nmsg.payload = mergedWKT;\nflow.set(\"WKT_merged\", msg.payload);\n\n// Return the modified message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 900,
+        "wires": [
+            [
+                "f0f53e024e153f0e",
+                "b5518a5e60cbc728"
+            ]
+        ]
+    },
+    {
+        "id": "8ec1a7ebdf62145a",
+        "type": "xml",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 900,
+        "wires": [
+            [
+                "2b365327191597b5",
+                "844172c242262280",
+                "7eac5caa3c6cc88f",
+                "8cb4ad669c410c33"
+            ]
+        ]
+    },
+    {
+        "id": "8cb4ad669c410c33",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "Flags2WKT",
+        "func": "// Convert KML data containing points (Flags) to Well-Known Text (WKT) format\nfunction kmlPointsToWKT(kmlData) {\n    // Extract folders from KML data\n    const folders = kmlData.Document[0].Folder || [];\n\n    // Array to store WKT points\n    let wktPoints = [];\n\n    // Iterate through each folder\n    folders.forEach(folder => {\n        // Get the name of the folder\n        const folderName = folder.name[0];\n\n        // Check if the folder is \"Flags\" and contains Placemark\n        if (folderName === \"Flags\" && folder.Placemark) {\n            // Extract placemarks from the folder\n            const placemarks = folder.Placemark || [];\n\n            // Map each placemark to WKT format\n            wktPoints = placemarks.map(placemark => {\n                // Extract and parse coordinates from the placemark\n                const coordinates = placemark.Point[0].coordinates[0].split(',').map(coord => parseFloat(coord));\n                \n                // Return coordinates in WKT Point format\n                return `POINT(${coordinates[0]} ${coordinates[1]})`;\n            });\n        }\n    });\n\n    // Return WKT format for the collected points or null if none\n    return wktPoints.length > 0 ? `GEOMETRYCOLLECTION(${wktPoints.join(',')})` : null;\n}\n\n// Example usage:\nconst kmlData = msg.payload.kml;\nconst wktResult = kmlPointsToWKT(kmlData);\n\n// Set the WKT result as payload and in flow variable\nmsg.payload = wktResult;\nflow.set(\"WKT_flags\", msg.payload);\n\n// Return the modified message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "844172c242262280",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "Boundary2WKT",
+        "func": "// Convert KML data containing boundaries to Well-Known Text (WKT) format\nfunction kmlToWKT(kmlData) {\n    // Extract folders from KML data\n    const folders = kmlData.Document[0].Folder || [];\n\n    // Array to store WKT points\n    let wktPoints = [];\n\n    // Iterate through each folder\n    folders.forEach(folder => {\n        // Get the name of the folder\n        const folderName = folder.name[0];\n\n        // Check if the folder is \"Boundaries\" and contains Placemark\n        if (folderName === \"Boundaries\" && folder.Placemark) {\n            // Extract placemarks from the folder\n            const placemarks = folder.Placemark || [];\n\n            // Map each placemark to WKT format\n            const folderWktPoints = placemarks.map(placemark => {\n                // Check if the placemark has valid Polygon coordinates\n                if (placemark.Polygon && placemark.Polygon[0].outerBoundaryIs &&\n                    placemark.Polygon[0].outerBoundaryIs[0].LinearRing &&\n                    placemark.Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates) {\n\n                    // Extract and parse coordinates from the placemark\n                    const coordinates = placemark.Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates[0]\n                        .split(' ')\n                        .map(coord => coord.split(',').map(val => parseFloat(val.trim())));\n\n                    // Filter out invalid coordinates\n                    const validCoordinates = coordinates.filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]));\n\n                    // Ignore polygons with less than 3 valid coordinates\n                    if (validCoordinates.length > 2) {\n                        // Add a copy of the first coordinate to the end of the array to close the polygon\n                        validCoordinates.push(validCoordinates[0]);\n\n                        // Convert valid coordinates to WKT format and return\n                        const wktCoords = validCoordinates.map(coord => `${coord[0]} ${coord[1]}`);\n                        return `POLYGON((${wktCoords.join(',')}))`;\n                    }\n                }\n\n                return null;\n            });\n\n            // Concatenate valid WKT points to the main array\n            wktPoints = wktPoints.concat(folderWktPoints.filter(point => point !== null));\n        }\n    });\n\n    // Return WKT format for the collected points or null if none\n    return wktPoints.length > 0 ? `GEOMETRYCOLLECTION(${wktPoints.join(',')})` : null;\n}\n\n// Example usage:\nconst kmlData = msg.payload.kml;\nconst wktResult = kmlToWKT(kmlData);\n\n// Set the WKT result as payload and in flow variable\nmsg.payload = wktResult;\nflow.set(\"WKT_boundary\", msg.payload);\n\n// Return the modified message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 900,
+        "wires": [
+            [
+                "fbf9920b36a1fde9"
+            ]
+        ]
+    },
+    {
+        "id": "f0f53e024e153f0e",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "7eac5caa3c6cc88f",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "Sections2WKT",
+        "func": "function kmlSectionsToWKT(kmlData) {\n    // Extract folders from KML data\n    const folders = kmlData.Document[0].Folder || [];\n\n    // Array to store WKT points\n    let wktPoints = [];\n\n    // Iterate through each folder\n    folders.forEach(folder => {\n        // Check if the folder has Placemark property and name is \"Sections\"\n        if (folder.Placemark && folder.name && folder.name[0] === \"Sections\") {\n            // Extract placemarks from the folder\n            const placemarks = folder.Placemark || [];\n\n            // Iterate through each placemark\n            placemarks.forEach((placemark, index) => {\n                // Check if the placemark has valid Polygon coordinates\n                if (placemark.Polygon && placemark.Polygon[0].outerBoundaryIs &&\n                    placemark.Polygon[0].outerBoundaryIs[0].LinearRing &&\n                    placemark.Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates) {\n\n                    // Extract and parse coordinates from the placemark\n                    const coordinates = placemark.Polygon[0].outerBoundaryIs[0].LinearRing[0].coordinates[0]\n                        .split(' ')\n                        .map(coord => coord.split(',').map(val => parseFloat(val.trim())));\n\n                    // Filter out invalid coordinates\n                    const validCoordinates = coordinates.filter(coord => !isNaN(coord[0]) && !isNaN(coord[1]));\n\n                    // Ignore polygons with less than 3 valid coordinates\n                    if (validCoordinates.length > 2) {\n                        // Convert valid coordinates to WKT format and push to the array\n                        const wktCoords = validCoordinates.map(coord => `${coord[0]} ${coord[1]}`);\n                        wktPoints.push(`POLYGON((${wktCoords.join(',')}))`);\n                    }\n                }\n            });\n        }\n    });\n\n    // Return WKT format for the collected points or null if none\n    return wktPoints.length > 0 ? `GEOMETRYCOLLECTION(${wktPoints.join(',')})` : null;\n}\n\n// Example usage:\nconst kmlData = msg.payload.kml;\nconst wktResult = kmlSectionsToWKT(kmlData);\n\n// Set the WKT result as payload and in flow variable\nmsg.payload = wktResult;\nflow.set(\"WKT_sections\", msg.payload);\n\n// Return the modified message\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "627bdd68d3e2cc95",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "KML2WKT",
+        "links": [
+            "86a95f323194d27b"
+        ],
+        "x": 185,
+        "y": 860,
+        "wires": [
+            [
+                "a014d56ef2cde6e7"
+            ]
+        ]
+    },
+    {
+        "id": "b5518a5e60cbc728",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "WKT done",
+        "mode": "link",
+        "links": [
+            "4393b4ea43d4087e"
+        ],
+        "x": 1385,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "a014d56ef2cde6e7",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "Filename",
+        "func": "msg.payload = flow.get(\"path\") +'/'+ flow.get(\"AOG_FieldFolder\") +'/' +'Field.kml';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 900,
+        "wires": [
+            [
+                "6bf58bc62fb48418",
+                "bc569dbd86c65a8e"
+            ]
+        ]
+    },
+    {
+        "id": "bc569dbd86c65a8e",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "cb2639ce852d5a0b",
+        "type": "comment",
+        "z": "b056a2f97db9cc1b",
+        "g": "521f2f2f99447d54",
+        "name": "not optimal flow for the merging",
+        "info": "",
+        "x": 1190,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "d4eaff1e7ceb8616",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "7840fe703eef97c3",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7840fe703eef97c3",
+        "type": "ui_tab",
+        "name": "AOG",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
