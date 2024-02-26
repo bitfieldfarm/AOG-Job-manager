@@ -1,590 +1,5 @@
 [
     {
-        "id": "addbdc8486a01571",
-        "type": "ui_button",
-        "z": "b056a2f97db9cc1b",
-        "name": "",
-        "group": "d4eaff1e7ceb8616",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Set working path",
-        "tooltip": "The directory for AOG fields. Included the Fields folder",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "Enter path for AgOpenGPS files",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 230,
-        "y": 1080,
-        "wires": [
-            [
-                "44241621938b9890"
-            ]
-        ]
-    },
-    {
-        "id": "44241621938b9890",
-        "type": "ui_toast",
-        "z": "b056a2f97db9cc1b",
-        "position": "prompt",
-        "displayTime": "3",
-        "highlight": "",
-        "sendall": true,
-        "outputs": 1,
-        "ok": "Set path",
-        "cancel": "Cancel",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "",
-        "x": 450,
-        "y": 1080,
-        "wires": [
-            [
-                "417b384cbf269cbe"
-            ]
-        ]
-    },
-    {
-        "id": "330c05e7c5a751f7",
-        "type": "function",
-        "z": "b056a2f97db9cc1b",
-        "name": "Filename",
-        "func": "flow.set(\"path\", msg.payload)\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 840,
-        "y": 1080,
-        "wires": [
-            [
-                "27ccc35b59f12705"
-            ]
-        ]
-    },
-    {
-        "id": "27ccc35b59f12705",
-        "type": "file",
-        "z": "b056a2f97db9cc1b",
-        "name": "",
-        "filename": "aogpath.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1010,
-        "y": 1080,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7165f29d372f99b9",
-        "type": "file in",
-        "z": "b056a2f97db9cc1b",
-        "name": "",
-        "filename": "aogpath.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 390,
-        "y": 1140,
-        "wires": [
-            [
-                "4fba7418ee700dde"
-            ]
-        ]
-    },
-    {
-        "id": "93aac5d3fc5bdc98",
-        "type": "debug",
-        "z": "b056a2f97db9cc1b",
-        "name": "debug 13",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 1140,
-        "wires": []
-    },
-    {
-        "id": "4fba7418ee700dde",
-        "type": "function",
-        "z": "b056a2f97db9cc1b",
-        "name": "Filename",
-        "func": "msg.payload = flow.set(\"path\", msg.payload)\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 580,
-        "y": 1140,
-        "wires": [
-            [
-                "93aac5d3fc5bdc98"
-            ]
-        ]
-    },
-    {
-        "id": "04764be9e87599ee",
-        "type": "link in",
-        "z": "b056a2f97db9cc1b",
-        "name": "Read config cile",
-        "links": [
-            "f4e20e4e50ca37d2"
-        ],
-        "x": 235,
-        "y": 1140,
-        "wires": [
-            [
-                "7165f29d372f99b9"
-            ]
-        ]
-    },
-    {
-        "id": "c0f6546d93efed75",
-        "type": "inject",
-        "z": "b056a2f97db9cc1b",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 190,
-        "y": 1200,
-        "wires": [
-            [
-                "7165f29d372f99b9"
-            ]
-        ]
-    },
-    {
-        "id": "417b384cbf269cbe",
-        "type": "switch",
-        "z": "b056a2f97db9cc1b",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "neq",
-                "v": "Cancel",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 650,
-        "y": 1080,
-        "wires": [
-            [
-                "330c05e7c5a751f7"
-            ]
-        ]
-    },
-    {
-        "id": "6777437a8a296b55",
-        "type": "group",
-        "z": "b056a2f97db9cc1b",
-        "name": "Get data from AOG",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "6456763b.e07d78",
-            "35811671.90ebea",
-            "7dbdf6ef.a73868",
-            "ee6515ea.f968c8",
-            "50034043.e2347",
-            "4f9068e.e12c498",
-            "87a209a20a25492a",
-            "1860dafb42ecb7a5",
-            "7e6a4e9c23df1067",
-            "628fb2924759832a",
-            "ab6bf185bf4e8276",
-            "f4e20e4e50ca37d2",
-            "b6c96882bf9e011e",
-            "b075e8b3106c27fc"
-        ],
-        "x": 34,
-        "y": -1,
-        "w": 1072,
-        "h": 322
-    },
-    {
-        "id": "6456763b.e07d78",
-        "type": "fs-ops-dir",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "path": "payload",
-        "pathType": "msg",
-        "filter": "",
-        "filterType": "str",
-        "dir": "files",
-        "dirType": "msg",
-        "x": 280,
-        "y": 140,
-        "wires": [
-            [
-                "35811671.90ebea"
-            ]
-        ]
-    },
-    {
-        "id": "35811671.90ebea",
-        "type": "fs-ops-stats",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "path": "payload",
-        "pathType": "msg",
-        "filename": "files",
-        "filenameType": "msg",
-        "stats": "stats",
-        "sizeType": "msg",
-        "x": 440,
-        "y": 140,
-        "wires": [
-            [
-                "ee6515ea.f968c8"
-            ]
-        ]
-    },
-    {
-        "id": "7dbdf6ef.a73868",
-        "type": "inject",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
-        "payloadType": "str",
-        "x": 130,
-        "y": 140,
-        "wires": [
-            [
-                "6456763b.e07d78"
-            ]
-        ]
-    },
-    {
-        "id": "ee6515ea.f968c8",
-        "type": "function",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "Combine and sort",
-        "func": "var combined = [];\n\nfor (var i = 0; i < msg.files.length; i++) {\n    var file = msg.files[i];\n    var stat = msg.stats[i];\n    \n    combined.push({\n        path: msg.payload,\n        file,\n        ...stat\n    })\n}\n\ncombined.sort((a, b) => b.birthtimeMs - a.birthtimeMs);\n\nmsg.combined = combined;\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 630,
-        "y": 140,
-        "wires": [
-            [
-                "50034043.e2347"
-            ]
-        ]
-    },
-    {
-        "id": "50034043.e2347",
-        "type": "change",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "combined[0]",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 840,
-        "y": 140,
-        "wires": [
-            [
-                "4f9068e.e12c498",
-                "87a209a20a25492a"
-            ]
-        ]
-    },
-    {
-        "id": "4f9068e.e12c498",
-        "type": "debug",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1010,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "87a209a20a25492a",
-        "type": "function",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "Set variables",
-        "func": "var originalFilename = msg.payload.file;\n\nflow.set(\"AOG_FieldFolder\",msg.payload.file)\n\n// Split the filename at hyphens (\"-\")\nvar filenameParts = originalFilename.split(\" \");\n\n// Remove whitespaces from the parts of the filename\nfilenameParts = filenameParts.map(part => part.trim());\n\n// Create an object to store the different parts of the filename\nvar parsedFilename = {\n    \"Field-name\": getFieldName(filenameParts) || null,\n    \"Equipment\": filenameParts[filenameParts.length - 2] || null,\n    \"Date\": filenameParts[filenameParts.length - 1] || null\n};\n\n// Store parsedFilename as flow variables\nflow.set(\"Fieldname\", parsedFilename[\"Field-name\"]);\nflow.set(\"Equipment\", parsedFilename[\"Equipment\"]);\nflow.set(\"Date\", parsedFilename[\"Date\"]);\n\n// Put the parsed filename into a new payload\nmsg.payload = parsedFilename;\n\n// Send the modified message forward\nreturn msg;\n\n// Function to retrieve the field name from the filename\nfunction getFieldName(parts) {\n    // Find the index of the first word containing east, west, north, or south\n    const index = parts.findIndex(word => [\"east\", \"west\", \"north\", \"south\"].includes(word.toLowerCase()));\n\n    if (index !== -1) {\n        // If the word is found, return all words up to and including the found word\n        return parts.slice(0, index + 1).join(\" \");\n    } else {\n        // If not, return the first word\n        return parts[0];\n    }\n}\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 240,
-        "wires": [
-            [
-                "1860dafb42ecb7a5",
-                "ab6bf185bf4e8276"
-            ]
-        ]
-    },
-    {
-        "id": "1860dafb42ecb7a5",
-        "type": "debug",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 590,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "7e6a4e9c23df1067",
-        "type": "ui_button",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "group": "d4eaff1e7ceb8616",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Get from AOG",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 140,
-        "y": 80,
-        "wires": [
-            [
-                "6456763b.e07d78",
-                "f4e20e4e50ca37d2"
-            ]
-        ]
-    },
-    {
-        "id": "628fb2924759832a",
-        "type": "ui_text",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "group": "d4eaff1e7ceb8616",
-        "order": 3,
-        "width": "6",
-        "height": "3",
-        "name": "",
-        "label": "Data from AOG",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "style": true,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 760,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "ab6bf185bf4e8276",
-        "type": "function",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "Format text",
-        "func": "// Retrieve the parsed parts of the filename from msg.payload\nvar parsedFilename = msg.payload;\n\n// Create an HTML string with formatted text\nvar formattedText = \"<b>Field : </b> \" + parsedFilename[\"Field-name\"] + \"<br>\" +\n    \"<b>Vehicle : </b> \" + parsedFilename[\"Equipment\"] + \"<br>\" +\n    \"<b>Date : </b> \" + parsedFilename[\"Date\"];\n\nmsg.payload = formattedText;\n\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 240,
-        "wires": [
-            [
-                "628fb2924759832a"
-            ]
-        ]
-    },
-    {
-        "id": "f4e20e4e50ca37d2",
-        "type": "link out",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [
-            "04764be9e87599ee",
-            "28431c57814d20a5"
-        ],
-        "x": 305,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "b6c96882bf9e011e",
-        "type": "link out",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "Get from AOG",
-        "mode": "link",
-        "links": [
-            "c385a861e210f52e"
-        ],
-        "x": 285,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "b075e8b3106c27fc",
-        "type": "inject",
-        "z": "b056a2f97db9cc1b",
-        "g": "6777437a8a296b55",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
-        "payloadType": "str",
-        "x": 130,
-        "y": 40,
-        "wires": [
-            [
-                "b6c96882bf9e011e"
-            ]
-        ]
-    },
-    {
-        "id": "523358fe435bf4b5",
-        "type": "group",
-        "z": "b056a2f97db9cc1b",
-        "name": "Save log to farmOS",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "b8c8d322e4334276",
-            "45fd4d93e705a24b",
-            "9a14842f30f831e3",
-            "c70b02b0f9ea8bb4",
-            "f9022109425a0ba0",
-            "3e43d67f51876647",
-            "b9a6a0e5806127b1",
-            "b04f6ed399ad107a",
-            "5aee7124de3fde10",
-            "3f3857580e2547ef",
-            "2c2268cab2939e9e",
-            "f6b63e90791d0e07",
-            "4f5d5d54a16e0e69",
-            "fa5cba8fd71c9c51",
-            "0d6f500a773fb2f2",
-            "86a95f323194d27b",
-            "4393b4ea43d4087e"
-        ],
-        "x": 34,
-        "y": 359,
-        "w": 1672,
-        "h": 182
-    },
-    {
         "id": "949541c9b70110d5",
         "type": "subflow",
         "name": "farmOS API",
@@ -832,6 +247,312 @@
         ]
     },
     {
+        "id": "b056a2f97db9cc1b",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6777437a8a296b55",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Get data from AOG",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "6456763b.e07d78",
+            "35811671.90ebea",
+            "7dbdf6ef.a73868",
+            "ee6515ea.f968c8",
+            "50034043.e2347",
+            "4f9068e.e12c498",
+            "87a209a20a25492a",
+            "1860dafb42ecb7a5",
+            "7e6a4e9c23df1067",
+            "628fb2924759832a",
+            "ab6bf185bf4e8276",
+            "b6c96882bf9e011e",
+            "b075e8b3106c27fc",
+            "31c6f06211d3d584",
+            "82b5e41b1ee42469",
+            "e23a55d7483b3789",
+            "7dacdf880f58c515"
+        ],
+        "x": 34,
+        "y": -1,
+        "w": 1212,
+        "h": 302
+    },
+    {
+        "id": "523358fe435bf4b5",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Save log to farmOS",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b8c8d322e4334276",
+            "45fd4d93e705a24b",
+            "9a14842f30f831e3",
+            "c70b02b0f9ea8bb4",
+            "f9022109425a0ba0",
+            "3e43d67f51876647",
+            "b9a6a0e5806127b1",
+            "b04f6ed399ad107a",
+            "5aee7124de3fde10",
+            "3f3857580e2547ef",
+            "2c2268cab2939e9e",
+            "f6b63e90791d0e07",
+            "4f5d5d54a16e0e69",
+            "fa5cba8fd71c9c51",
+            "0d6f500a773fb2f2",
+            "86a95f323194d27b",
+            "4393b4ea43d4087e",
+            "d4fb5b1425d037ce"
+        ],
+        "x": 34,
+        "y": 359,
+        "w": 1852,
+        "h": 182
+    },
+    {
+        "id": "218db33e9a179a17",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "Get fields and equipment",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "85a992b6f1a84742",
+            "a248d67544e4fd63",
+            "da1c1fcbd0a61e0c",
+            "2f424e9149c7d2ea",
+            "a95a797ba46fc00c",
+            "28431c57814d20a5",
+            "751ab8934e4646c1",
+            "a9a459621b482584",
+            "afe7197d0c848471",
+            "e5c17c0cdd2470a0"
+        ],
+        "x": 34,
+        "y": 579,
+        "w": 992,
+        "h": 122
+    },
+    {
+        "id": "521f2f2f99447d54",
+        "type": "group",
+        "z": "b056a2f97db9cc1b",
+        "name": "KML 2 WKT for farmOS map",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b001845b7dc1b426",
+            "6bf58bc62fb48418",
+            "2b365327191597b5",
+            "b2d427fc3b04095a",
+            "fbf9920b36a1fde9",
+            "8ec1a7ebdf62145a",
+            "8cb4ad669c410c33",
+            "844172c242262280",
+            "f0f53e024e153f0e",
+            "7eac5caa3c6cc88f",
+            "627bdd68d3e2cc95",
+            "b5518a5e60cbc728",
+            "a014d56ef2cde6e7",
+            "bc569dbd86c65a8e",
+            "cb2639ce852d5a0b"
+        ],
+        "x": 34,
+        "y": 739,
+        "w": 1392,
+        "h": 242
+    },
+    {
+        "id": "6456763b.e07d78",
+        "type": "fs-ops-dir",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "path": "payload",
+        "pathType": "msg",
+        "filter": "",
+        "filterType": "str",
+        "dir": "files",
+        "dirType": "msg",
+        "x": 760,
+        "y": 100,
+        "wires": [
+            [
+                "35811671.90ebea"
+            ]
+        ]
+    },
+    {
+        "id": "35811671.90ebea",
+        "type": "fs-ops-stats",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "path": "payload",
+        "pathType": "msg",
+        "filename": "files",
+        "filenameType": "msg",
+        "stats": "stats",
+        "sizeType": "msg",
+        "x": 920,
+        "y": 100,
+        "wires": [
+            [
+                "ee6515ea.f968c8"
+            ]
+        ]
+    },
+    {
+        "id": "7dbdf6ef.a73868",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "31c6f06211d3d584"
+            ]
+        ]
+    },
+    {
+        "id": "ee6515ea.f968c8",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Combine and sort",
+        "func": "var combined = [];\n\nfor (var i = 0; i < msg.files.length; i++) {\n    var file = msg.files[i];\n    var stat = msg.stats[i];\n    \n    combined.push({\n        path: msg.payload,\n        file,\n        ...stat\n    })\n}\n\ncombined.sort((a, b) => b.birthtimeMs - a.birthtimeMs);\n\nmsg.combined = combined;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 100,
+        "wires": [
+            [
+                "50034043.e2347"
+            ]
+        ]
+    },
+    {
+        "id": "50034043.e2347",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "combined[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "4f9068e.e12c498",
+                "87a209a20a25492a"
+            ]
+        ]
+    },
+    {
+        "id": "4f9068e.e12c498",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "87a209a20a25492a",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Set variables",
+        "func": "var originalFilename = msg.payload.file;\n\nflow.set(\"AOG_FieldFolder\",msg.payload.file)\n\n// Split the filename at hyphens (\"-\")\nvar filenameParts = originalFilename.split(\" \");\n\n// Remove whitespaces from the parts of the filename\nfilenameParts = filenameParts.map(part => part.trim());\n\n// Create an object to store the different parts of the filename\nvar parsedFilename = {\n    \"Field-name\": getFieldName(filenameParts) || null,\n    \"Equipment\": filenameParts[filenameParts.length - 2] || null,\n    \"Date\": filenameParts[filenameParts.length - 1] || null\n};\n\n// Store parsedFilename as flow variables\nflow.set(\"Fieldname\", parsedFilename[\"Field-name\"]);\nflow.set(\"Equipment\", parsedFilename[\"Equipment\"]);\nflow.set(\"Date\", parsedFilename[\"Date\"]);\n\n// Put the parsed filename into a new payload\nmsg.payload = parsedFilename;\n\n// Send the modified message forward\nreturn msg;\n\n// Function to retrieve the field name from the filename\nfunction getFieldName(parts) {\n    // Find the index of the first word containing east, west, north, or south\n    const index = parts.findIndex(word => [\"east\", \"west\", \"north\", \"south\",\"øst\", \"vest\", \"nord\", \"sør\"].includes(word.toLowerCase()));\n\n    if (index !== -1) {\n        // If the word is found, return all words up to and including the found word\n        return parts.slice(0, index + 1).join(\" \");\n    } else {\n        // If not, return the first word\n        return parts[0];\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 200,
+        "wires": [
+            [
+                "1860dafb42ecb7a5",
+                "ab6bf185bf4e8276"
+            ]
+        ]
+    },
+    {
+        "id": "1860dafb42ecb7a5",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 260,
+        "wires": []
+    },
+    {
         "id": "b8c8d322e4334276",
         "type": "ui_button",
         "z": "b056a2f97db9cc1b",
@@ -861,23 +582,92 @@
         ]
     },
     {
-        "id": "45fd4d93e705a24b",
+        "id": "7e6a4e9c23df1067",
+        "type": "ui_button",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "group": "d4eaff1e7ceb8616",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Get from AOG",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "31c6f06211d3d584"
+            ]
+        ]
+    },
+    {
+        "id": "628fb2924759832a",
+        "type": "ui_text",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "group": "d4eaff1e7ceb8616",
+        "order": 3,
+        "width": "6",
+        "height": "3",
+        "name": "",
+        "label": "Data from AOG",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1140,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ab6bf185bf4e8276",
         "type": "function",
         "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "Filename",
-        "func": "flow.set(\"path\", \"/home/jk/Dokumenter/AgOpenGPS/Fields\")\n\nmsg.filename = flow.get(\"path\") +'/'+ flow.get(\"AOG_FieldFolder\") +'/' +'Field.kml';\nreturn msg;",
+        "g": "6777437a8a296b55",
+        "name": "Format text",
+        "func": "// Retrieve the parsed parts of the filename from msg.payload\nvar parsedFilename = msg.payload;\n\n// Create an HTML string with formatted text\nvar formattedText = \"<b>Path : </b>\" + flow.get(\"path\") + \"<br>\" +\n    \"<b>Field : </b> \" + parsedFilename[\"Field-name\"] + \"<br>\" +\n    \"<b>Vehicle : </b> \" + parsedFilename[\"Equipment\"] + \"<br>\" +\n    \"<b>Date : </b> \" + parsedFilename[\"Date\"];\n\nmsg.payload = formattedText;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
+        "x": 950,
+        "y": 200,
+        "wires": [
+            [
+                "628fb2924759832a"
+            ]
+        ]
+    },
+    {
+        "id": "f9022109425a0ba0",
+        "type": "xml",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 590,
         "y": 500,
         "wires": [
             [
-                "c70b02b0f9ea8bb4"
+                "3e43d67f51876647",
+                "b9a6a0e5806127b1"
             ]
         ]
     },
@@ -933,20 +723,23 @@
         ]
     },
     {
-        "id": "f9022109425a0ba0",
-        "type": "xml",
+        "id": "45fd4d93e705a24b",
+        "type": "function",
         "z": "b056a2f97db9cc1b",
         "g": "523358fe435bf4b5",
-        "name": "",
-        "property": "payload",
-        "attr": "",
-        "chr": "",
-        "x": 590,
+        "name": "Filename",
+        "func": "flow.set(\"path\", \"/home/jk/Dokumenter/AgOpenGPS/Fields\")\n\nmsg.filename = flow.get(\"path\") +'/'+ flow.get(\"AOG_FieldFolder\") +'/' +'Field.kml';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
         "y": 500,
         "wires": [
             [
-                "3e43d67f51876647",
-                "b9a6a0e5806127b1"
+                "c70b02b0f9ea8bb4"
             ]
         ]
     },
@@ -1054,192 +847,6 @@
         "x": 1250,
         "y": 500,
         "wires": []
-    },
-    {
-        "id": "2c2268cab2939e9e",
-        "type": "switch",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "",
-        "property": "statusCode",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "201",
-                "vt": "str"
-            },
-            {
-                "t": "neq",
-                "v": "201",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1250,
-        "y": 440,
-        "wires": [
-            [
-                "f6b63e90791d0e07"
-            ],
-            [
-                "fa5cba8fd71c9c51"
-            ]
-        ]
-    },
-    {
-        "id": "f6b63e90791d0e07",
-        "type": "change",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "Save msg",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "THE LOG WAS SAVED",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1420,
-        "y": 420,
-        "wires": [
-            [
-                "4f5d5d54a16e0e69"
-            ]
-        ]
-    },
-    {
-        "id": "4f5d5d54a16e0e69",
-        "type": "ui_toast",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "position": "top right",
-        "displayTime": "10",
-        "highlight": "Green",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "",
-        "x": 1600,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "fa5cba8fd71c9c51",
-        "type": "change",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "Error msg",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "NOTHING WAS SAVED",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1420,
-        "y": 460,
-        "wires": [
-            [
-                "0d6f500a773fb2f2"
-            ]
-        ]
-    },
-    {
-        "id": "0d6f500a773fb2f2",
-        "type": "ui_toast",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "position": "top right",
-        "displayTime": "10",
-        "highlight": "Red",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "ERROR",
-        "name": "",
-        "x": 1600,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "86a95f323194d27b",
-        "type": "link out",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "Prepare Geodata",
-        "mode": "link",
-        "links": [
-            "627bdd68d3e2cc95"
-        ],
-        "x": 265,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "4393b4ea43d4087e",
-        "type": "link in",
-        "z": "b056a2f97db9cc1b",
-        "g": "523358fe435bf4b5",
-        "name": "Create activity log",
-        "links": [
-            "b5518a5e60cbc728"
-        ],
-        "x": 165,
-        "y": 460,
-        "wires": [
-            [
-                "45fd4d93e705a24b"
-            ]
-        ]
-    },
-    {
-        "id": "218db33e9a179a17",
-        "type": "group",
-        "z": "b056a2f97db9cc1b",
-        "name": "Get fields and equipment",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "85a992b6f1a84742",
-            "a248d67544e4fd63",
-            "da1c1fcbd0a61e0c",
-            "2f424e9149c7d2ea",
-            "a95a797ba46fc00c",
-            "28431c57814d20a5",
-            "751ab8934e4646c1",
-            "a9a459621b482584",
-            "afe7197d0c848471",
-            "e5c17c0cdd2470a0"
-        ],
-        "x": 34,
-        "y": 579,
-        "w": 992,
-        "h": 122
     },
     {
         "id": "85a992b6f1a84742",
@@ -1469,34 +1076,178 @@
         "wires": []
     },
     {
-        "id": "521f2f2f99447d54",
-        "type": "group",
+        "id": "2c2268cab2939e9e",
+        "type": "switch",
         "z": "b056a2f97db9cc1b",
-        "name": "KML 2 WKT for farmOS map",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "b001845b7dc1b426",
-            "6bf58bc62fb48418",
-            "2b365327191597b5",
-            "b2d427fc3b04095a",
-            "fbf9920b36a1fde9",
-            "8ec1a7ebdf62145a",
-            "8cb4ad669c410c33",
-            "844172c242262280",
-            "f0f53e024e153f0e",
-            "7eac5caa3c6cc88f",
-            "627bdd68d3e2cc95",
-            "b5518a5e60cbc728",
-            "a014d56ef2cde6e7",
-            "bc569dbd86c65a8e",
-            "cb2639ce852d5a0b"
+        "g": "523358fe435bf4b5",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "201",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "201",
+                "vt": "str"
+            }
         ],
-        "x": 34,
-        "y": 739,
-        "w": 1392,
-        "h": 242
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1250,
+        "y": 440,
+        "wires": [
+            [
+                "f6b63e90791d0e07"
+            ],
+            [
+                "fa5cba8fd71c9c51"
+            ]
+        ]
+    },
+    {
+        "id": "f6b63e90791d0e07",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Save msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "THE LOG WAS SAVED",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 420,
+        "wires": [
+            [
+                "d4fb5b1425d037ce"
+            ]
+        ]
+    },
+    {
+        "id": "4f5d5d54a16e0e69",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "Green",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1780,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "fa5cba8fd71c9c51",
+        "type": "change",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Error msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "NOTHING WAS SAVED",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 460,
+        "wires": [
+            [
+                "0d6f500a773fb2f2"
+            ]
+        ]
+    },
+    {
+        "id": "0d6f500a773fb2f2",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "position": "top right",
+        "displayTime": "10",
+        "highlight": "Red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "ERROR",
+        "name": "",
+        "x": 1600,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b6c96882bf9e011e",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Get from AOG",
+        "mode": "link",
+        "links": [
+            "c385a861e210f52e"
+        ],
+        "x": 285,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b075e8b3106c27fc",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/jk/Dokumenter/AgOpenGPS/Fields",
+        "payloadType": "str",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "b6c96882bf9e011e"
+            ]
+        ]
     },
     {
         "id": "b001845b7dc1b426",
@@ -1696,6 +1447,20 @@
         ]
     },
     {
+        "id": "86a95f323194d27b",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Prepare Geodata",
+        "mode": "link",
+        "links": [
+            "627bdd68d3e2cc95"
+        ],
+        "x": 265,
+        "y": 400,
+        "wires": []
+    },
+    {
         "id": "627bdd68d3e2cc95",
         "type": "link in",
         "z": "b056a2f97db9cc1b",
@@ -1709,6 +1474,23 @@
         "wires": [
             [
                 "a014d56ef2cde6e7"
+            ]
+        ]
+    },
+    {
+        "id": "4393b4ea43d4087e",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "Create activity log",
+        "links": [
+            "b5518a5e60cbc728"
+        ],
+        "x": 165,
+        "y": 460,
+        "wires": [
+            [
+                "45fd4d93e705a24b"
             ]
         ]
     },
@@ -1749,6 +1531,204 @@
         ]
     },
     {
+        "id": "addbdc8486a01571",
+        "type": "ui_button",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "group": "d4eaff1e7ceb8616",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Set working path",
+        "tooltip": "The directory for AOG fields. Included the Fields folder",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "Enter path for AgOpenGPS files",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 230,
+        "y": 1080,
+        "wires": [
+            [
+                "44241621938b9890"
+            ]
+        ]
+    },
+    {
+        "id": "44241621938b9890",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "position": "prompt",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "Set path",
+        "cancel": "Cancel",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 450,
+        "y": 1080,
+        "wires": [
+            [
+                "417b384cbf269cbe"
+            ]
+        ]
+    },
+    {
+        "id": "330c05e7c5a751f7",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "name": "Filename",
+        "func": "flow.set(\"path\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1080,
+        "wires": [
+            [
+                "27ccc35b59f12705"
+            ]
+        ]
+    },
+    {
+        "id": "27ccc35b59f12705",
+        "type": "file",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "filename": "aogpath.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1010,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7165f29d372f99b9",
+        "type": "file in",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "filename": "aogpath.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 1140,
+        "wires": [
+            [
+                "4fba7418ee700dde"
+            ]
+        ]
+    },
+    {
+        "id": "93aac5d3fc5bdc98",
+        "type": "debug",
+        "z": "b056a2f97db9cc1b",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "4fba7418ee700dde",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "name": "Filename",
+        "func": "low.set(\"path\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1140,
+        "wires": [
+            [
+                "93aac5d3fc5bdc98"
+            ]
+        ]
+    },
+    {
+        "id": "c0f6546d93efed75",
+        "type": "inject",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 1140,
+        "wires": [
+            [
+                "7165f29d372f99b9"
+            ]
+        ]
+    },
+    {
+        "id": "417b384cbf269cbe",
+        "type": "switch",
+        "z": "b056a2f97db9cc1b",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "Cancel",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 1080,
+        "wires": [
+            [
+                "330c05e7c5a751f7"
+            ]
+        ]
+    },
+    {
         "id": "bc569dbd86c65a8e",
         "type": "debug",
         "z": "b056a2f97db9cc1b",
@@ -1775,6 +1755,100 @@
         "x": 1190,
         "y": 780,
         "wires": []
+    },
+    {
+        "id": "31c6f06211d3d584",
+        "type": "file in",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "filename": "aogpath.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "82b5e41b1ee42469"
+            ]
+        ]
+    },
+    {
+        "id": "82b5e41b1ee42469",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "Filename",
+        "func": "\nflow.set(\"path\", msg.payload);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "6456763b.e07d78",
+                "e23a55d7483b3789"
+            ]
+        ]
+    },
+    {
+        "id": "e23a55d7483b3789",
+        "type": "ui_toast",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 770,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d4fb5b1425d037ce",
+        "type": "link out",
+        "z": "b056a2f97db9cc1b",
+        "g": "523358fe435bf4b5",
+        "name": "clear text",
+        "mode": "link",
+        "links": [
+            "7dacdf880f58c515"
+        ],
+        "x": 1535,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7dacdf880f58c515",
+        "type": "link in",
+        "z": "b056a2f97db9cc1b",
+        "g": "6777437a8a296b55",
+        "name": "",
+        "links": [
+            "d4fb5b1425d037ce"
+        ],
+        "x": 985,
+        "y": 160,
+        "wires": [
+            [
+                "628fb2924759832a"
+            ]
+        ]
     },
     {
         "id": "d4eaff1e7ceb8616",
