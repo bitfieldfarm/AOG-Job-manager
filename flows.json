@@ -1554,7 +1554,7 @@
         "y": 1080,
         "wires": [
             [
-                "44241621938b9890"
+                "3b0c2495c2f4a72e"
             ]
         ]
     },
@@ -1573,7 +1573,7 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 450,
+        "x": 630,
         "y": 1080,
         "wires": [
             [
@@ -1593,8 +1593,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 840,
-        "y": 1080,
+        "x": 1007.4999923706055,
+        "y": 1079.9999589920044,
         "wires": [
             [
                 "27ccc35b59f12705"
@@ -1612,8 +1612,8 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1010,
-        "y": 1080,
+        "x": 1177.4999923706055,
+        "y": 1079.9999589920044,
         "wires": [
             []
         ]
@@ -1720,8 +1720,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 650,
-        "y": 1080,
+        "x": 817.4999923706055,
+        "y": 1079.9999589920044,
         "wires": [
             [
                 "330c05e7c5a751f7"
@@ -1847,6 +1847,26 @@
         "wires": [
             [
                 "628fb2924759832a"
+            ]
+        ]
+    },
+    {
+        "id": "3b0c2495c2f4a72e",
+        "type": "function",
+        "z": "b056a2f97db9cc1b",
+        "name": "function 5",
+        "func": "msg.topic = flow.get(\"path\");\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 1080,
+        "wires": [
+            [
+                "44241621938b9890"
             ]
         ]
     },
