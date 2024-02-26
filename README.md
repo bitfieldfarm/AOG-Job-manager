@@ -13,12 +13,17 @@ Then it should get the most recent field worked on, and save the log in farmOS.
 Flags, boundary and section covarage are imported to map in log.
 Also, worked area are stored in note-field.
 
+### Setup
 Must have a working instance of [farmOS](https://farmos.org). Selfhosted or hosted at [Farmier](https://farmier.com)
 Also Node-Red running on the tablet running AgOpenGPS
 
 And some extra libraries for node-red..
 npm install togeojson wellknown 
 npm install xmldom
+
+I also used the farmOS API nodes from Farmer Ed.
+Install instructions here [Farmer-Eds-Shed](https://github.com/Farmer-Eds-Shed/Node-Red-4-farmOS)
+ 
 
 I'm surprised if there are no bugs.
 
